@@ -1,5 +1,5 @@
 /*!
- * Button visually impaired v1.0.8
+ * Button visually impaired v1.0.9
  */
 (function($){
     $.bvi = function(options) {
@@ -15,10 +15,12 @@
             'bvi_fixed': true,
             'bvi_voice': true,
             'bvi_flash_iframe': true,
-            'bvi_hide': false
+            'bvi_hide': false,
+            'bvi_target_click': function() {},
+            'bvi_panel_close_click': function() {}
         }, options);
 
-        console.log('Button visually impaired v1.0.8');
+        console.log('Button visually impaired v1.0.9');
 
         var versionIE = detectIE();
         var selector = default_setting.bvi_target;
@@ -135,6 +137,7 @@
                         responsiveVoice.cancel();
                 }
                 active();
+                default_setting.bvi_panel_close_click();
                 bvi_panel_voice('Обычная версия сайта');
                 return false;
             });
@@ -747,6 +750,7 @@
                     Cookies.set('bvi-panel-active', true, {path: "/", expires: 1});
                     active();
                     bvi_panel_voice('Версия сайта для слабовидящих');
+                    default_setting.bvi_target_click();
                     return false;
                 });
             } else {
@@ -754,7 +758,7 @@
             }
             active();
         } else {
-            console.log('ERROR BVI v1.0.7 - Неправильный параметр: ' + checkError);
+            console.log('ERROR BVI v1.0.9 - Неправильный параметр: ' + checkError);
         }
     };
 })(jQuery);
